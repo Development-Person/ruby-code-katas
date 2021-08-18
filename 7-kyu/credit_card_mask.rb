@@ -38,6 +38,7 @@ puts maskify1('4556364607935616') # '############5616'
 puts maskify1('4556364 607935616') # '#############5616'
 puts maskify1('1') # '1'
 
+# other solutions
 def maskify2(card_num)
   hash = card_num[0..-5].length
   '#' * hash + card_num[hash..-1]

@@ -27,10 +27,10 @@ p accum1('HbideVbxncC') # "H-Bb-Iii-Dddd-Eeeee-Vvvvvv-Bbbbbbb-Xxxxxxxx-Nnnnnnnnn
 
 # other solutions
 
-def accum2(s)
-  s.chars.each_with_index.map { |c, i| c.upcase + c.downcase * i }.join('-')
+def accum2(string)
+  string.chars.each_with_index.map { |c, i| c.upcase + c.downcase * i }.join('-')
 end
 
-def accum3(s)
-  s.chars.map.with_index { |char, index| (char * (index + 1)).capitalize }.join('-')
+def accum3(string)
+  string.chars.map.with_index { |char, index| (char * (index + 1)).capitalize }.join('-')
 end

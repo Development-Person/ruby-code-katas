@@ -114,7 +114,7 @@ def adjusted(adj)
   ($bills = $bills.zip(adj).map { |x| x.sum }).none?(&:negative?)
 end
 
-def tickets(people)
+def tickets3(people)
   $bills = [0, 0, 0]
   people.each { |p| return 'NO' if !adjusted(ADJ[p][0]) && !adjusted(ADJ[p][1]) }
   'YES'

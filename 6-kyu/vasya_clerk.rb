@@ -70,10 +70,52 @@ def tickets1(people)
   'YES'
 end
 
-# p tickets1([25, 25, 50]) # 'YES'
-# p tickets1([25, 25, 50, 100]) # 'YES'
-# p tickets1([25, 25, 25, 100]) # 'YES'
-# p tickets1([25, 100]) # 'NO'
-# p tickets1([25, 25, 25, 25, 50, 100, 50]) # 'YES'
-# p tickets1([25, 25, 25, 25, 25, 25, 25, 25, 25, 25]) # 'YES'
-# p tickets1([25, 25, 25, 25, 25, 100, 100]) # 'NO'
+p tickets1([25, 25, 50]) # 'YES'
+p tickets1([25, 25, 50, 100]) # 'YES'
+p tickets1([25, 25, 25, 100]) # 'YES'
+p tickets1([25, 100]) # 'NO'
+p tickets1([25, 25, 25, 25, 50, 100, 50]) # 'YES'
+p tickets1([25, 25, 25, 25, 25, 25, 25, 25, 25, 25]) # 'YES'
+p tickets1([25, 25, 25, 25, 25, 100, 100]) # 'NO'
+
+# other solutions
+
+def tickets2(people)
+  bills_25 = 0
+  bills_50 = 0
+
+  people.each do |v|
+    if v == 25
+      bills_25 += 1        # keep the 25
+
+    elsif (v == 50) && (bills_25 > 0)
+      bills_50 += 1        # keep the 50
+      bills_25 -= 1        # return 25
+
+    elsif (v == 100) && ((bills_25 >= 3) || ((bills_50 > 0) && (bills_25 > 0)))
+      if bills_50 > 0
+        bills_50 -= 1    # return 50
+        bills_25 -= 1    # return 25
+      else
+        bills_25 -= 3    # return 3x25
+      end
+
+    else
+      return 'NO'
+    end
+  end
+
+  'YES'
+end
+
+# crazy solution which I don't understand
+ADJ = { 25 => [[1, 0, 0], [0, 0, 0]], 50 => [[-1, 1, 0], [-1, 0, 0]], 100 => [[-1, -1, 1], [-2, 1, 0]] }
+def adjusted(adj)
+  ($bills = $bills.zip(adj).map { |x| x.sum }).none?(&:negative?)
+end
+
+def tickets(people)
+  $bills = [0, 0, 0]
+  people.each { |p| return 'NO' if !adjusted(ADJ[p][0]) && !adjusted(ADJ[p][1]) }
+  'YES'
+end
